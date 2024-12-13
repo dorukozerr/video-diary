@@ -2,6 +2,7 @@
   "name": "video-diary",
   "version": "1.0.0",
   "main": "index.ts",
+  "author": "Doruk Özer <dorukozer@protonmail.com",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
