@@ -1,0 +1,14 @@
+{
+  "extends": ["expo", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "arrow-body-style": "error",
+    "prefer-arrow-callback": "error",
+    "no-restricted-syntax": [
+      "error",
+      "FunctionExpression",
+      "FunctionDeclaration"
+    ],
+    "no-console": ["error", { "allow": ["warn", "error"] }]
+  }
+}

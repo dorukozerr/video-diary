@@ -1,3 +1,3 @@
-import { Text } from "react-native";
+import { Text } from 'react-native';
 
 export const TestComponent = () => <Text>Test Component</Text>;
