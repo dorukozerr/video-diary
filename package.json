@@ -1,7 +1,7 @@
 {
   "name": "video-diary",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "./src/app/index.ts",
   "author": "Doruk Özer <dorukozer@protonmail.com",
   "license": "MIT",
   "scripts": {
