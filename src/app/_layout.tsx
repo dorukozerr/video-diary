@@ -3,6 +3,7 @@ import { useThemeStore } from '@/stores/theme-store';
 import { themes } from '@/utils/constants';
 import { SafeAreaView, View } from '@/components/themed-primitives';
 import { Header } from '@/components/header';
+import { Navbar } from '@/components/navbar';
 
 import '../../tailwind.css';
 
@@ -21,6 +22,7 @@ const Layout = () => {
       className='flex h-full w-full flex-col items-start justify-start bg-black'
     >
       <Header />
+      <Navbar />
       <View className='w-full flex-1'>
         <Slot />
       </View>
