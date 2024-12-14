@@ -2,6 +2,7 @@
   "extends": ["expo", "prettier"],
   "plugins": ["prettier"],
   "rules": {
+    "prettier/prettier": "error",
     "arrow-body-style": "error",
     "prefer-arrow-callback": "error",
     "no-restricted-syntax": [
