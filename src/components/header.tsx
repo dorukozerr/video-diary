@@ -7,7 +7,7 @@ export const Header = () => {
   const { activeTheme, setTheme } = useThemeStore();
 
   return (
-    <View className='flex h-16 w-full flex-row items-center justify-between border border-border px-3'>
+    <View className='flex h-16 w-full flex-row items-center justify-between border-b border-border px-3'>
       <Text className='text-2xl font-bold'>Video Diary</Text>
       <Pressable
         onPress={() => setTheme(activeTheme === 'light' ? 'dark' : 'light')}

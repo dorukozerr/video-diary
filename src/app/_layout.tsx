@@ -11,7 +11,9 @@ const Layout = () => {
 
   // TODO: When safe area background becomes white ios simulator topbar becomes
   // unvisible. Like time, battery, wifi status ..etc. Is it happening because I
-  // implemented theming wrong or something else idk.
+  // implemented theming wrong or something else idk. I set SafeAreaView background
+  // to black to solve this but if users system theme is dark this can make topbar
+  // invisible again. Must look into this further.
 
   return (
     <SafeAreaView

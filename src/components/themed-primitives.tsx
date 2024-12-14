@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, forwardRef } from 'react';
 import {
   SafeAreaView as RNSaveAreaView,
   View as RNView,
@@ -19,32 +19,33 @@ export const SafeAreaView = ({
   </RNSaveAreaView>
 );
 
-export const View = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<ViewProps>) => (
-  <RNView className={`bg-background ${className}`} {...props}>
-    {children}
-  </RNView>
+export const View = forwardRef<RNView, PropsWithChildren<ViewProps>>(
+  ({ children, className, ...props }, ref) => (
+    <RNView ref={ref} className={`bg-background ${className}`} {...props}>
+      {children}
+    </RNView>
+  )
 );
+View.displayName = 'View';
 
-export const Text = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<TextProps>) => (
-  <RNText className={`text-foreground ${className}`} {...props}>
-    {children}
-  </RNText>
+export const Text = forwardRef<RNText, PropsWithChildren<TextProps>>(
+  ({ children, className, ...props }, ref) => (
+    <RNText ref={ref} className={`text-foreground ${className}`} {...props}>
+      {children}
+    </RNText>
+  )
 );
+Text.displayName = 'Text';
 
-export const Pressable = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<PressableProps>) => (
-  <RNPressable className={`text-foreground ${className}`} {...props}>
-    {children}
-  </RNPressable>
+export const Pressable = forwardRef<RNView, PropsWithChildren<PressableProps>>(
+  ({ children, className, ...props }, ref) => (
+    <RNPressable
+      ref={ref}
+      className={`text-foreground ${className}`}
+      {...props}
+    >
+      {children}
+    </RNPressable>
+  )
 );
+Pressable.displayName = 'Pressable';
