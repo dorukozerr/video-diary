@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react-native';
 import { useThemeStore } from '@/stores/theme-store';
 import { themeTokens } from '@/utils/constants';
 import { View, Text, Pressable } from '@/components/themed-primitives';
+import { EntryCard } from '@/components/entry-card';
 
 const Root = () => {
   const activeTheme = useThemeStore((state) => state.activeTheme);
@@ -20,9 +21,13 @@ const Root = () => {
         </Link>
       </View>
       <ScrollView>
-        {[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, , 2, 2].map((_item) => (
-          <Text className='text-7xl'>Testing</Text>
-        ))}
+        <View className='flex flex-col gap-4 p-4'>
+          {Array(15)
+            .fill('1')
+            .map((item, index) => (
+              <EntryCard key={index} item={item} />
+            ))}
+        </View>
       </ScrollView>
     </View>
   );
