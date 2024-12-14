@@ -2,7 +2,7 @@ import { ScrollView } from 'react-native';
 import { View } from '@/components/themed-primitives';
 import { EntryCard } from '@/components/entry-card';
 
-const Root = () => (
+const Page = () => (
   <View className='h-full w-full'>
     <ScrollView>
       <View className='flex flex-col gap-4 p-4'>
@@ -16,4 +16,4 @@ const Root = () => (
   </View>
 );
 
-export default Root;
+export default Page;

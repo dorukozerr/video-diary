@@ -1,14 +1,9 @@
-import { View, Text } from 'react-native';
+import { View, Text } from '@/components/themed-primitives';
 
-const DetailsPage = (props) => {
-  console.log('DetailsPage props =>', props);
+const Page = () => (
+  <View>
+    <Text>Entry Details</Text>
+  </View>
+);
 
-  return (
-    <View>
-      <Text>Details Page</Text>
-      <Text></Text>
-    </View>
-  );
-};
-
-export default DetailsPage;
+export default Page;

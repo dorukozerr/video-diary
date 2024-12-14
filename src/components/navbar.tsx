@@ -13,7 +13,7 @@ export const Navbar = () => {
     <View className='flex h-16 w-full flex-row items-center justify-between px-3'>
       {pathname === '/' ? (
         <Fragment>
-          <Text className='text-xl font-bold'>Welcome!</Text>
+          <Text className='text-xl font-bold'>Welcome Back!</Text>
           <Link href='/add' asChild>
             <Pressable className='flex flex-row items-center justify-center gap-2'>
               <Plus

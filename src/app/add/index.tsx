@@ -1,9 +1,9 @@
 import { View, Text } from '@/components/themed-primitives';
 
-const AddVideo = () => (
+const Page = () => (
   <View>
-    <Text>Add Vide page</Text>
+    <Text>Create Entry</Text>
   </View>
 );
 
-export default AddVideo;
+export default Page;
