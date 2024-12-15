@@ -5,7 +5,7 @@ import { View, Text, Pressable } from '@/components/ui/themed-primitives';
 import { EntryCard } from '@/components/root/entry-card';
 
 export const EntriesList = ({ entries }: { entries: Video[] }) =>
-  entries.length !== 0 ? (
+  entries.length === 0 ? (
     <View className='flex h-full w-full flex-col items-center justify-center gap-5'>
       <Text className='text-2xl'>No Entry Found</Text>
       <Link href='/add-entry' asChild>
@@ -19,15 +19,9 @@ export const EntriesList = ({ entries }: { entries: Video[] }) =>
   ) : (
     <ScrollView>
       <View className='flex flex-col gap-4 p-4'>
-        {Array(20)
-          .fill({
-            id: '1322kmfksakfsa',
-            name: 'Test',
-            description: 'test test test'
-          })
-          .map((entry) => (
-            <EntryCard key={`entryCard-${entry.id}`} entry={entry} />
-          ))}
+        {entries.map((entry) => (
+          <EntryCard key={`entryCard-${entry.id}`} entry={entry} />
+        ))}
       </View>
     </ScrollView>
   );

@@ -5,10 +5,8 @@ import { themeTokens } from '@/utils/constants';
 import { View, Pressable, Text } from '@/components/ui/themed-primitives';
 
 export const Navigation = () => {
-  const { activeTheme } = useThemeStore();
-  const step = useAddEntryStore((state) => state.step);
-  const setStep = useAddEntryStore((state) => state.setStep);
-  const baseVideo = useAddEntryStore((state) => state.baseVideo);
+  const activeTheme = useThemeStore((state) => state.activeTheme);
+  const { step, setStep, baseVideo } = useAddEntryStore();
 
   return (
     <View className='flex h-max w-full flex-row items-center justify-between px-4 pb-10'>

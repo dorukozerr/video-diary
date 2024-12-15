@@ -5,15 +5,15 @@ import { Video } from '@/types';
 
 let db: Awaited<ReturnType<typeof openDatabaseAsync>>;
 
-const init = async () => {
+const initializeDB = async () => {
   db = await openDatabaseAsync('video-diary');
 
   await db.execAsync(
-    `CREATE TABLE IF NOT EXISTS videos (id TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, uri TEXT NOT NULL, duration NUMBER NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`
+    'CREATE TABLE IF NOT EXISTS videos (id TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, uri TEXT NOT NULL, duration NUMBER NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)'
   );
 };
 
-init();
+initializeDB();
 
 export const getAllEntries = async () =>
   (await db.getAllAsync('SELECT * from videos')) as Video[];
