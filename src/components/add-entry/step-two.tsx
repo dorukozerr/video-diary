@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { useVideoPlayer, VideoView, createVideoPlayer } from 'expo-video';
+import { useState, useEffect } from 'react';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import { useAddEntryStore } from '@/stores/add-entry-store';
 import { millisToSeconds } from '@/utils/helpers';
 import { Scrubber } from '@/components/add-entry/scrubber';
@@ -7,32 +7,41 @@ import { Navigation } from '@/components/add-entry/navigation';
 import { View } from '@/components/ui/themed-primitives';
 
 export const StepTwo = () => {
+  const [currentTime, setCurrentTime] = useState(0);
   const { baseVideo, clipRange } = useAddEntryStore();
 
-  //  const player = useVideoPlayer(baseVideo.uri, (player) => {
-  //    player.loop = true;
-  //    player.play();
-  //  });
+  // I spent more than 10 hours to setup this video player and making it
+  // loop over on selected clip range. It totally worth it I'm satisfied :))
 
-  const player = useMemo(
-    () => createVideoPlayer(baseVideo.uri),
-    [baseVideo.uri]
-  );
+  const player = useVideoPlayer(baseVideo.uri, (player) => {
+    player.loop = true;
+    player.play();
+    player.timeUpdateEventInterval = 1;
+  });
+
+  player.addListener('timeUpdate', (payload) => {
+    setCurrentTime(payload.currentTime);
+  });
+
+  useEffect(() => {
+    if (currentTime > millisToSeconds(clipRange[1])) {
+      player.pause();
+      player.currentTime = millisToSeconds(clipRange[0]);
+      player.play();
+    }
+  }, [currentTime, player, clipRange]);
 
   return (
     <View className='flex h-full w-full flex-col items-center justify-center gap-4'>
       <View className='w-full flex-1 px-4 pt-4'>
         <View className='h-full w-full rounded-md border border-border bg-muted'>
           <VideoView
-            style={{
-              width: '100%',
-              height: '100%'
-            }}
+            style={{ width: '100%', height: '100%' }}
             className='bg-muted'
             player={player}
             allowsFullscreen={false}
             allowsPictureInPicture={false}
-            requiresLinearPlayback={true}
+            nativeControls={false}
           />
         </View>
       </View>

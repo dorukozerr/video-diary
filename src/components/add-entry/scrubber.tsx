@@ -4,13 +4,11 @@ import { useThemeStore } from '@/stores/theme-store';
 import { useAddEntryStore } from '@/stores/add-entry-store';
 import { themeTokens } from '@/utils/constants';
 import { millisToSeconds } from '@/utils/helpers';
-import { View, Text } from '@/components/ui/themed-primitives';
+import { View } from '@/components/ui/themed-primitives';
 
 export const Scrubber = ({ player }: { player: VideoPlayer }) => {
   const activeTheme = useThemeStore((state) => state.activeTheme);
   const { clipRange, setClipRange, baseVideo } = useAddEntryStore();
-
-  console.log('log from scrubber', clipRange);
 
   return (
     <View className='h-full w-full flex-col items-center justify-center'>
@@ -42,18 +40,9 @@ export const Scrubber = ({ player }: { player: VideoPlayer }) => {
           player.pause();
         }}
         onSlidingComplete={async () => {
-          const targetTime = millisToSeconds(clipRange[0]);
-          console.log('milliToSeconds =>', targetTime);
-          player.replay();
+          player.currentTime = millisToSeconds(clipRange[0]);
 
-          setTimeout(() => {
-            player.seekBy(targetTime);
-
-            setTimeout(() => {
-              console.log('currentTime =>', player.currentTime);
-            }, 1000);
-          }, 1000);
-          //player.play();
+          player.play();
         }}
         style={{ width: '100%' }}
       />
