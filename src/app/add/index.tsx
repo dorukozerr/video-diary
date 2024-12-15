@@ -1,5 +1,5 @@
 import { useAddNewEntryProcess } from '@/hooks/use-add-new-entry-process';
-import { View, Text } from '@/components/themed-primitives';
+import { View, Text } from '@/components/ui/themed-primitives';
 
 const Page = () => {
   const { processStep } = useAddNewEntryProcess();

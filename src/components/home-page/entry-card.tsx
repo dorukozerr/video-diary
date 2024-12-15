@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { Pressable, View, Text } from '@/components/themed-primitives';
+import { Pressable, View, Text } from '@/components/ui/themed-primitives';
 
 export const EntryCard = ({ item }: { item: string }) => (
   <Link href={`/details/${item}`} asChild>

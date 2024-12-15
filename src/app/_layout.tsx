@@ -2,9 +2,9 @@ import { Slot } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useThemeStore } from '@/stores/theme-store';
 import { themes } from '@/utils/constants';
-import { SafeAreaView, View } from '@/components/themed-primitives';
-import { Header } from '@/components/header';
-import { Navbar } from '@/components/navbar';
+import { SafeAreaView, View } from '@/components/ui/themed-primitives';
+import { Header } from '@/components/layout/header';
+import { Navbar } from '@/components/layout/navbar';
 
 import '../../tailwind.css';
 

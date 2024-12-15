@@ -3,7 +3,7 @@ import { usePathname, Link } from 'expo-router';
 import { Plus, ArrowLeft } from 'lucide-react-native';
 import { useThemeStore } from '@/stores/theme-store';
 import { themeTokens } from '@/utils/constants';
-import { View, Text, Pressable } from '@/components/themed-primitives';
+import { View, Text, Pressable } from '@/components/ui/themed-primitives';
 
 export const Navbar = () => {
   const pathname = usePathname();

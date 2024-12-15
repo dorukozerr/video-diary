@@ -14,11 +14,8 @@ const init = async () => {
 
 init();
 
-export const getAllEntries = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
-  return await db.getAllAsync('SELECT * from videos');
-};
+export const getAllEntries = async () =>
+  await db.getAllAsync('SELECT * from videos');
 
 export const addEntry = async ({
   name,

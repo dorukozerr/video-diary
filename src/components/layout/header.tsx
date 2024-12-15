@@ -1,7 +1,7 @@
 import { Moon, Sun } from 'lucide-react-native';
 import { useThemeStore } from '@/stores/theme-store';
 import { themeTokens } from '@/utils/constants';
-import { View, Text, Pressable } from '@/components/themed-primitives';
+import { View, Text, Pressable } from '@/components/ui/themed-primitives';
 
 export const Header = () => {
   const { activeTheme, setTheme } = useThemeStore();
