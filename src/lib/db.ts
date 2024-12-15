@@ -1,6 +1,7 @@
 import 'react-native-get-random-values';
 import { v4 as uuid } from 'uuid';
 import { openDatabaseAsync } from 'expo-sqlite';
+import { Video } from '@/types';
 
 let db: Awaited<ReturnType<typeof openDatabaseAsync>>;
 
@@ -15,19 +16,14 @@ const init = async () => {
 init();
 
 export const getAllEntries = async () =>
-  await db.getAllAsync('SELECT * from videos');
+  (await db.getAllAsync('SELECT * from videos')) as Video[];
 
 export const addEntry = async ({
   name,
   description,
   uri,
   duration
-}: {
-  name: string;
-  description: string;
-  uri: string;
-  duration: number;
-}) =>
+}: Omit<Video, 'id'>) =>
   await db.runAsync(
     'INSERT INTO videos (id, name, description, uri, duration) VALUES (?, ?, ?, ?, ?)',
     uuid(),
