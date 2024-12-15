@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Platform } from 'react-native';
 import {
   requestMediaLibraryPermissionsAsync,
@@ -8,7 +8,7 @@ import {
 
 export const useAddNewEntryProcess = () => {
   const [processStep, setProcessStep] = useState(0);
-  const [rawVideoData, setRawVideoData] = useState({ uri: '', duration: 0 });
+  const [baseVideo, setBaseVideo] = useState({ uri: '', duration: 0 });
 
   const pickAsset = useCallback(async () => {
     try {
@@ -16,7 +16,8 @@ export const useAddNewEntryProcess = () => {
         const { status } = await requestMediaLibraryPermissionsAsync();
 
         if (status !== 'granted') {
-          throw new Error('Permission to access media library was denied');
+          // TODO: Toast message maybe?
+          return;
         }
       }
 
@@ -27,17 +28,22 @@ export const useAddNewEntryProcess = () => {
       });
 
       if (result.canceled) {
-        throw new Error('User cancelled video selection process');
+        // TODO: Toast message maybe?
+        return;
       }
 
       const { uri, duration } = result.assets[0] as ImagePickerAsset;
 
-      setRawVideoData({ uri, duration: duration ?? 0 });
+      setBaseVideo({ uri, duration: duration ?? 0 });
       setProcessStep(1);
     } catch (error) {
       console.error('pickVideo error =>', error);
     }
   }, []);
 
-  return { processStep, setProcessStep, pickAsset, rawVideoData };
+  useEffect(() => {
+    console.log({ baseVideo });
+  }, [baseVideo]);
+
+  return { processStep, setProcessStep, pickAsset, baseVideo };
 };
