@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { create } from 'zustand';
 import { Platform } from 'react-native';
 import {
   requestMediaLibraryPermissionsAsync,
@@ -6,15 +6,21 @@ import {
   ImagePickerAsset
 } from 'expo-image-picker';
 
-export const useAddNewEntryProcess = () => {
-  const [processStep, setProcessStep] = useState(0);
-  const [baseVideo, setBaseVideo] = useState({ uri: '', duration: 0 });
+interface ProcessState {
+  step: 0 | 1 | 2;
+  baseVideo: { uri: string; duration: number };
+  setStep: (step: 0 | 1 | 2) => void;
+  pickAsset: () => Promise<void>;
+}
 
-  const pickAsset = useCallback(async () => {
+export const useAddEntryStore = create<ProcessState>((set) => ({
+  step: 0,
+  baseVideo: { uri: '', duration: 0 },
+  setStep: (step) => set({ step }),
+  pickAsset: async () => {
     try {
       if (Platform.OS !== 'web') {
         const { status } = await requestMediaLibraryPermissionsAsync();
-
         if (status !== 'granted') {
           // TODO: Toast message maybe?
           return;
@@ -34,12 +40,13 @@ export const useAddNewEntryProcess = () => {
 
       const { uri, duration } = result.assets[0] as ImagePickerAsset;
 
-      setBaseVideo({ uri, duration: duration ?? 0 });
-      setProcessStep(1);
+      set({
+        baseVideo: { uri, duration: duration ?? 0 },
+        step: 1
+      });
     } catch (error) {
+      // TODO: Toast message maybe?
       console.error('pickVideo error =>', error);
     }
-  }, []);
-
-  return { processStep, setProcessStep, pickAsset, baseVideo };
-};
+  }
+}));

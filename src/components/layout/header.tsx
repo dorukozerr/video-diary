@@ -4,7 +4,8 @@ import { themeTokens } from '@/utils/constants';
 import { View, Text, Pressable } from '@/components/ui/themed-primitives';
 
 export const Header = () => {
-  const { activeTheme, setTheme } = useThemeStore();
+  const activeTheme = useThemeStore((state) => state.activeTheme);
+  const setTheme = useThemeStore((state) => state.setTheme);
 
   return (
     <View className='flex h-16 w-full flex-row items-center justify-between border-b border-border px-3'>
