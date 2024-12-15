@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import { useQueries } from '@/hooks/use-queries';
 import { View, Pressable, Text } from '@/components/ui/themed-primitives';
 import { ActivityIndicator } from '@/components/atoms/activity-indicator';
-import { EntryCard } from '@/components/home-page/entry-card';
+import { EntryCard } from '@/components/root/entry-card';
 
 const Page = () => {
   const { getAllEntriesQuery } = useQueries();
@@ -38,7 +38,7 @@ const Page = () => {
         entries.length === 0 ? (
           <View className='flex h-full w-full flex-col items-center justify-center gap-5'>
             <Text className='text-2xl'>No Entry Found</Text>
-            <Link href='/add' asChild>
+            <Link href='/add-entry' asChild>
               <Pressable className='rounded-md bg-primary px-4 py-3'>
                 <Text className='text-sm font-medium text-primary-foreground'>
                   Create

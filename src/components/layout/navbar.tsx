@@ -14,7 +14,7 @@ export const Navbar = () => {
       {pathname === '/' ? (
         <Fragment>
           <Text className='text-xl font-bold'>Welcome Back!</Text>
-          <Link href='/add' asChild>
+          <Link href='/add-entry' asChild>
             <Pressable className='flex flex-row items-center justify-center gap-2'>
               <Plus
                 color={`hsl(${themeTokens[activeTheme]['--foreground']})`}

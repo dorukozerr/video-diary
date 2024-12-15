@@ -28,6 +28,13 @@
     "scheme": "videodiary",
     "plugins": [
       [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ],
+      [
         "expo-sqlite",
         {
           "enableFTS": true,
@@ -42,7 +49,8 @@
             ]
           }
         }
-      ]
+      ],
+      "expo-video"
     ]
   }
 }

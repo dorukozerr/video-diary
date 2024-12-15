@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Platform } from 'react-native';
 import {
   requestMediaLibraryPermissionsAsync,
@@ -40,10 +40,6 @@ export const useAddNewEntryProcess = () => {
       console.error('pickVideo error =>', error);
     }
   }, []);
-
-  useEffect(() => {
-    console.log({ baseVideo });
-  }, [baseVideo]);
 
   return { processStep, setProcessStep, pickAsset, baseVideo };
 };
