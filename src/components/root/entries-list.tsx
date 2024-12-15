@@ -11,7 +11,7 @@ export const EntriesList = ({ entries }: { entries: Video[] }) =>
       <Link href='/add-entry' asChild>
         <Pressable className='rounded-md bg-primary px-4 py-3'>
           <Text className='text-sm font-medium text-primary-foreground'>
-            Create
+            Create One
           </Text>
         </Pressable>
       </Link>

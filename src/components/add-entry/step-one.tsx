@@ -57,7 +57,7 @@ export const StepOne = () => {
           </Text>
         ) : null}
         {errorMessage !== '' ? (
-          <Text className='text-center text-sm text-destructive'>
+          <Text className='text-center text-sm !text-destructive'>
             {errorMessage}
           </Text>
         ) : null}

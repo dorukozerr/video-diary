@@ -20,9 +20,6 @@ export const Scrubber = ({ player }: { player: VideoPlayer }) => {
         thumbStyle={{
           backgroundColor: `hsl(${themeTokens[activeTheme]['--primary']})`
         }}
-        trackStyle={{
-          backgroundColor: `hsl(${themeTokens[activeTheme]['--muted']})`
-        }}
         enabled={true}
         trackHeight={10}
         thumbSize={25}
@@ -45,6 +42,9 @@ export const Scrubber = ({ player }: { player: VideoPlayer }) => {
           player.play();
         }}
         style={{ width: '100%' }}
+        slideOnTap={false}
+        inboundColor={`hsl(${themeTokens[activeTheme]['--muted-foreground']})`}
+        outboundColor={`hsl(${themeTokens[activeTheme]['--muted']})`}
       />
     </View>
   );
