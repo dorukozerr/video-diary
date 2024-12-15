@@ -2,7 +2,7 @@
   "name": "video-diary",
   "version": "1.0.0",
   "main": "expo-router/entry",
-  "author": "Doruk Özer <dorukozer@protonmail.com",
+  "author": "Doruk Özer <dorukozer@protonmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "expo start",
