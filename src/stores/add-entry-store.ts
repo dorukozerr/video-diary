@@ -8,19 +8,20 @@ import {
 
 interface ProcessState {
   step: 0 | 1 | 2;
-  baseVideo: { uri: string; duration: number };
+  baseVideo: { uri: string; duration: number; fileName: string };
   setStep: (step: 0 | 1 | 2) => void;
   pickAsset: () => Promise<void>;
 }
 
 export const useAddEntryStore = create<ProcessState>((set) => ({
   step: 0,
-  baseVideo: { uri: '', duration: 0 },
+  baseVideo: { uri: '', duration: 0, fileName: '' },
   setStep: (step) => set({ step }),
   pickAsset: async () => {
     try {
       if (Platform.OS !== 'web') {
         const { status } = await requestMediaLibraryPermissionsAsync();
+
         if (status !== 'granted') {
           // TODO: Toast message maybe?
           return;
@@ -38,15 +39,19 @@ export const useAddEntryStore = create<ProcessState>((set) => ({
         return;
       }
 
-      const { uri, duration } = result.assets[0] as ImagePickerAsset;
+      const { uri, duration, fileName } = result.assets[0] as ImagePickerAsset;
 
       set({
-        baseVideo: { uri, duration: duration ?? 0 },
+        baseVideo: {
+          uri,
+          duration: duration ?? 0,
+          fileName: fileName ?? 'This should never happen'
+        },
         step: 1
       });
     } catch (error) {
       // TODO: Toast message maybe?
-      console.error('pickVideo error =>', error);
+      console.error('pickAsset error =>', error);
     }
   }
 }));
