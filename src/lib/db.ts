@@ -8,11 +8,41 @@ const init = async () => {
   db = await openDatabaseAsync('video-diary');
 
   await db.execAsync(
-    `CREATE TABLE IF NOT EXISTS videos (id TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL, description TEXT, uri TEXT NOT NULL, duration NUMBER, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`
+    `CREATE TABLE IF NOT EXISTS videos (id TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, uri TEXT NOT NULL, duration NUMBER NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`
   );
 };
 
 init();
+
+export const getAllEntries = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  return await db.getAllAsync('SELECT * from videos');
+};
+
+export const addEntry = async ({
+  name,
+  description,
+  uri,
+  duration
+}: {
+  name: string;
+  description: string;
+  uri: string;
+  duration: number;
+}) =>
+  await db.runAsync(
+    'INSERT INTO videos (id, name, description, uri, duration) VALUES (?, ?, ?, ?, ?)',
+    uuid(),
+    name,
+    description,
+    uri,
+    duration
+  );
+
+//
+// Experimentals
+//
 
 export const getAllTables = async () => {
   try {
@@ -38,52 +68,6 @@ export const dropTable = async (tableName: string) => {
     };
   } catch (error) {
     console.error('dropTable error =>', error);
-
-    return { success: false, response: error };
-  }
-};
-
-export const getAll = async () => {
-  try {
-    const response = await db.getAllAsync('SELECT * from videos');
-
-    return { success: true, response };
-  } catch (error) {
-    console.error('getAll error =>', error);
-
-    return { success: false, response: error };
-  }
-};
-
-export const addEntry = async ({
-  name,
-  description,
-  uri,
-  duration
-}: {
-  name: string;
-  description: string;
-  uri: string;
-  duration: number;
-}) => {
-  try {
-    const id = uuid();
-
-    await db.runAsync(
-      'INSERT INTO videos (id, name, description, uri, duration) VALUES (?, ?, ?, ?, ?)',
-      id,
-      name,
-      description,
-      uri,
-      duration
-    );
-
-    return {
-      success: true,
-      response: `Record ${id} inserted into videos table.`
-    };
-  } catch (error) {
-    console.error('addEntry error =>', error);
 
     return { success: false, response: error };
   }

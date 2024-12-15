@@ -10,7 +10,7 @@ export const Navbar = () => {
   const activeTheme = useThemeStore((state) => state.activeTheme);
 
   return (
-    <View className='flex h-16 w-full flex-row items-center justify-between px-3'>
+    <View className='flex h-16 w-full flex-row items-center justify-between border-b border-border px-3'>
       {pathname === '/' ? (
         <Fragment>
           <Text className='text-xl font-bold'>Welcome Back!</Text>
