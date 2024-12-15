@@ -42,12 +42,17 @@ export const Scrubber = ({ player }: { player: VideoPlayer }) => {
           player.pause();
         }}
         onSlidingComplete={async () => {
-          console.log('milliToSeconds =>', millisToSeconds(clipRange[0]));
+          const targetTime = millisToSeconds(clipRange[0]);
+          console.log('milliToSeconds =>', targetTime);
           player.replay();
-          setTimeout(() => {
-            player.seekBy(millisToSeconds(clipRange[0]));
-          }, 150);
 
+          setTimeout(() => {
+            player.seekBy(targetTime);
+
+            setTimeout(() => {
+              console.log('currentTime =>', player.currentTime);
+            }, 1000);
+          }, 1000);
           //player.play();
         }}
         style={{ width: '100%' }}

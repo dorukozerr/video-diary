@@ -1,5 +1,5 @@
-import { useEvent } from 'expo';
-import { useVideoPlayer, VideoView, TimeUpdateEventPayload } from 'expo-video';
+import { useMemo } from 'react';
+import { useVideoPlayer, VideoView, createVideoPlayer } from 'expo-video';
 import { useAddEntryStore } from '@/stores/add-entry-store';
 import { millisToSeconds } from '@/utils/helpers';
 import { Scrubber } from '@/components/add-entry/scrubber';
@@ -9,10 +9,15 @@ import { View } from '@/components/ui/themed-primitives';
 export const StepTwo = () => {
   const { baseVideo, clipRange } = useAddEntryStore();
 
-  const player = useVideoPlayer(baseVideo.uri, (player) => {
-    player.loop = true;
-    player.play();
-  });
+  //  const player = useVideoPlayer(baseVideo.uri, (player) => {
+  //    player.loop = true;
+  //    player.play();
+  //  });
+
+  const player = useMemo(
+    () => createVideoPlayer(baseVideo.uri),
+    [baseVideo.uri]
+  );
 
   return (
     <View className='flex h-full w-full flex-col items-center justify-center gap-4'>
@@ -25,6 +30,8 @@ export const StepTwo = () => {
             }}
             className='bg-muted'
             player={player}
+            allowsFullscreen={false}
+            allowsPictureInPicture={false}
             requiresLinearPlayback={true}
           />
         </View>
