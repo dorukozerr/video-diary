@@ -38,7 +38,6 @@ export const Scrubber = ({ player }: { player: VideoPlayer }) => {
         }}
         onSlidingComplete={async () => {
           player.currentTime = millisToSeconds(clipRange[0]);
-
           player.play();
         }}
         style={{ width: '100%' }}
