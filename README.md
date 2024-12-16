@@ -12,7 +12,7 @@ cd video-diary &&
 yarn &&
 npx expo prebuild &&
 cd ios &&
-pod instal &&
+pod install &&
 cd .. &&
 yarn ios
 ```
