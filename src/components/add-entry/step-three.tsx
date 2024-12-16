@@ -2,10 +2,10 @@ import { TextInput } from 'react-native';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { cropVideo } from '@/lib/ffmpeg';
 import { useAddEntryStore } from '@/stores/add-entry-store';
 import { Navigation } from '@/components/add-entry/navigation';
 import { View, Text } from '@/components/ui/themed-primitives';
-import { useFFmpeg } from '@/hooks/use-ffmpeg';
 
 const schema = z.object({
   title: z
@@ -29,10 +29,13 @@ export const StepThree = () => {
     resolver: zodResolver(schema)
   });
   const { baseVideo, clipRange } = useAddEntryStore();
-  const { cropVideo } = useFFmpeg();
 
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
-    cropVideo({ assetUri: baseVideo.uri });
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    console.log(values);
+
+    const res = await cropVideo({ videoUri: baseVideo.uri, clipRange });
+
+    console.log('res =>', res);
   };
 
   return (
