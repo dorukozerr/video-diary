@@ -4,6 +4,7 @@ A React Native application that enables users to select and crop videos for thei
 
 ## Tech Stack
 
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
 - [React Native](https://reactnative.dev/) - Framework for building native apps
 - [Expo](https://expo.dev/) - Platform for universal native apps
 - [Expo Router](https://docs.expo.dev/router/introduction/) - File-based routing for Expo
@@ -19,10 +20,17 @@ A React Native application that enables users to select and crop videos for thei
 - `yarn` - Package manager
 - `watchman` - File watching service
 - `pod` - CocoaPods dependency manager
+- `Android Studio` - Android development environment
+- `Xcode` - iOS development environment
+- `Java OpenJDK` - Java Development Kit (version 11 or newer)
+- iOS Simulator
+- Android Emulator (configured in Android Studio)
 
 ## Local Development Setup
 
-Since this project uses FFmpeg with native modules, prebuild is required. Follow these steps to run the app on iOS simulator:
+Since this project uses FFmpeg with native modules, prebuild is required.
+
+### iOS Setup
 
 ```bash
 git clone git@github.com:dorukozerr/video-diary.git &&
@@ -33,6 +41,16 @@ cd ios &&
 pod install &&
 cd .. &&
 yarn ios
+```
+
+### Android Setup
+
+```bash
+git clone git@github.com:dorukozerr/video-diary.git &&
+cd video-diary &&
+yarn &&
+npx expo prebuild &&
+yarn android
 ```
 
 ## Known Issue
