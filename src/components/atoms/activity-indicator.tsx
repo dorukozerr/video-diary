@@ -10,6 +10,7 @@ export const ActivityIndicator = (
   return (
     <RNActivityIndicator
       color={`hsl(${themeTokens[activeTheme]['--foreground']})`}
+      size={16}
       {...props}
     />
   );

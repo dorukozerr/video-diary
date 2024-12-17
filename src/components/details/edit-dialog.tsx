@@ -5,7 +5,10 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Video } from '@/types';
 import { useQueries } from '@/hooks/use-queries';
+import { useThemeStore } from '@/stores/theme-store';
 import { entrySchema } from '@/utils/schemas';
+import { themeTokens } from '@/utils/constants';
+import { ActivityIndicator } from '@/components/atoms/activity-indicator';
 import { Dialog } from '@/components/ui/dialog';
 import { View, Text, Pressable } from '@/components/ui/themed-primitives';
 
@@ -20,6 +23,7 @@ export const EditDialog = ({
   onClose: () => void;
   entry: Video | null;
 }) => {
+  const activeTheme = useThemeStore((state) => state.activeTheme);
   const {
     control,
     handleSubmit,
@@ -44,8 +48,8 @@ export const EditDialog = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <View className='flex w-full flex-col items-start justify-start gap-8 p-4'>
-        <View className='flex h-max w-full flex-col items-start justify-start gap-3'>
+      <View className='flex w-full flex-col items-start justify-start gap-6'>
+        <View className='flex h-max w-full flex-col items-start justify-start gap-4'>
           <Text className='w-full text-xl font-bold'>Title</Text>
           <Controller
             control={control}
@@ -65,7 +69,7 @@ export const EditDialog = ({
             </Text>
           ) : null}
         </View>
-        <View className='flex h-max w-full flex-col items-start justify-start gap-3'>
+        <View className='flex h-max w-full flex-col items-start justify-start gap-4'>
           <Text className='w-full text-xl font-bold'>Description</Text>
           <Controller
             control={control}
@@ -100,7 +104,13 @@ export const EditDialog = ({
             onPress={handleSubmit(onSubmit)}
             disabled={isPending}
           >
-            <Text className='text-primary-foreground'>Update</Text>
+            {isPending ? (
+              <ActivityIndicator
+                color={`hsl(${themeTokens[activeTheme]['--primary-foreground']})`}
+              />
+            ) : (
+              <Text className='text-primary-foreground'>Update</Text>
+            )}
           </Pressable>
         </View>
       </View>

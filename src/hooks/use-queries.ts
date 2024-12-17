@@ -7,11 +7,15 @@ import {
   updateEntry,
   deleteEntry
 } from '@/lib/db';
+import { useAddEntryStore } from '@/stores/add-entry-store';
 import { cropVideo } from '@/lib/ffmpeg';
 
 export const useQueries = () => {
   const { navigate } = router;
   const queryClient = useQueryClient();
+  const resetProcessState = useAddEntryStore(
+    (state) => state.resetProcessState
+  );
 
   const getAllEntriesQuery = useQuery({
     queryFn: getAllEntries,
@@ -41,6 +45,8 @@ export const useQueries = () => {
         description,
         uri: res.videoUri
       });
+
+      resetProcessState();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['entries'] });

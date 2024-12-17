@@ -21,10 +21,9 @@ export const StepThree = () => {
   });
   const { baseVideo, clipRange } = useAddEntryStore();
   const {
-    addEntryMutation: { mutateAsync }
+    addEntryMutation: { mutateAsync, isPending }
   } = useQueries();
 
-  // TODO: Add toast message maybe?
   const onSubmit: SubmitHandler<FormValues> = async ({ name, description }) =>
     await mutateAsync({ baseVideo, clipRange, name, description });
 
@@ -74,7 +73,7 @@ export const StepThree = () => {
           ) : null}
         </View>
       </View>
-      <Navigation onFormSubmit={handleSubmit(onSubmit)} />
+      <Navigation onFormSubmit={handleSubmit(onSubmit)} isPending={isPending} />
     </View>
   );
 };

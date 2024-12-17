@@ -7,6 +7,11 @@ export const Header = () => {
   const activeTheme = useThemeStore((state) => state.activeTheme);
   const setTheme = useThemeStore((state) => state.setTheme);
 
+  const iconProps = {
+    size: 16,
+    color: `hsl(${themeTokens[activeTheme]['--foreground']})`
+  };
+
   return (
     <View className='flex h-16 w-full flex-row items-center justify-between border-b border-border px-3'>
       <Text className='text-2xl font-bold'>Video Diary</Text>
@@ -14,9 +19,9 @@ export const Header = () => {
         onPress={() => setTheme(activeTheme === 'light' ? 'dark' : 'light')}
       >
         {activeTheme === 'dark' ? (
-          <Moon color={`hsl(${themeTokens[activeTheme]['--foreground']})`} />
+          <Moon {...iconProps} />
         ) : activeTheme === 'light' ? (
-          <Sun color={`hsl(${themeTokens[activeTheme]['--foreground']})`} />
+          <Sun {...iconProps} />
         ) : null}
       </Pressable>
     </View>

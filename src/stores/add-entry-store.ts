@@ -15,6 +15,7 @@ interface ProcessState {
   pickAsset: () => Promise<void>;
   clipRange: [number, number];
   setClipRange: (newRange: [number, number]) => void;
+  resetProcessState: () => void;
 }
 
 export const useAddEntryStore = create<ProcessState>((set) => ({
@@ -91,5 +92,11 @@ export const useAddEntryStore = create<ProcessState>((set) => ({
     }
   },
   clipRange: [0, 5000],
-  setClipRange: (newRange) => set({ clipRange: newRange })
+  setClipRange: (newRange) => set({ clipRange: newRange }),
+  resetProcessState: () =>
+    set({
+      baseVideo: { uri: '', fileName: '', duration: 0 },
+      step: 0,
+      clipRange: [0, 5000]
+    })
 }));
