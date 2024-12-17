@@ -80,7 +80,7 @@ export const useQueries = () => {
       await deleteEntry(id);
       await deleteAsync(assetUri);
     },
-    onSuccess: (_, id) => {
+    onSuccess: (_, { id }) => {
       navigate('/');
       queryClient.invalidateQueries({ queryKey: ['entries', id] });
     }
