@@ -9,7 +9,7 @@ const Page = () => {
   const { isFetching, isError, isSuccess, data: entries } = getAllEntriesQuery;
 
   return (
-    <View className='h-full w-full'>
+    <View className='w-full flex-1'>
       {isFetching ? (
         <View className='flex h-full w-full flex-col items-center justify-center'>
           <ActivityIndicator />

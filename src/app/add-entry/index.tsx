@@ -13,7 +13,7 @@ const Page = () => {
     2: <StepThree />
   };
 
-  return <View className='h-full w-full'>{steps[step]}</View>;
+  return <View className='w-full flex-1'>{steps[step]}</View>;
 };
 
 export default Page;

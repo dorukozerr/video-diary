@@ -27,9 +27,7 @@ const Layout = () => {
       >
         <Header />
         <Navbar />
-        <View className='w-full flex-1'>
-          <Slot />
-        </View>
+        <Slot />
       </SafeAreaView>
     </QueryClientProvider>
   );
