@@ -1,23 +1,51 @@
+import { useState, useEffect } from 'react';
+import { Image } from 'react-native';
 import { Link } from 'expo-router';
+import { getThumbnailAsync } from 'expo-video-thumbnails';
 import { Video } from '@/types';
 import { Pressable, View, Text } from '@/components/ui/themed-primitives';
 
 export const EntryCard = ({
-  entry: { id, name, description }
+  entry: { id, name, description, uri }
 }: {
   entry: Video;
-}) => (
-  <Link href={`/details/${id}`} asChild>
-    <Pressable className='flex h-32 flex-row items-center justify-center rounded-md border border-border'>
-      <View className='h-full w-32 bg-muted'></View>
-      <View className='flex h-full flex-1 flex-col items-start justify-center p-3'>
-        <Text numberOfLines={1} className='text-2xl'>
-          {name}
-        </Text>
-        <Text numberOfLines={2} className='w-full truncate text-base'>
-          {description}
-        </Text>
-      </View>
-    </Pressable>
-  </Link>
-);
+}) => {
+  const [image, setImage] = useState('');
+
+  const generateThumbnail = async (videoUri: string) => {
+    try {
+      const { uri } = await getThumbnailAsync(videoUri);
+
+      setImage(uri);
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
+  useEffect(() => {
+    uri && generateThumbnail(uri);
+  }, [uri]);
+
+  return (
+    <Link href={`/details/${id}`} asChild>
+      <Pressable className='flex h-32 flex-row items-center justify-center overflow-hidden rounded-md border border-border'>
+        <View className='h-full w-32 bg-muted'>
+          {image ? (
+            <Image
+              style={{ width: '100%', height: '100%' }}
+              source={{ uri: image }}
+            />
+          ) : null}
+        </View>
+        <View className='flex h-full flex-1 flex-col items-start justify-center p-3'>
+          <Text numberOfLines={1} className='text-2xl'>
+            {name}
+          </Text>
+          <Text numberOfLines={2} className='w-full truncate text-base'>
+            {description}
+          </Text>
+        </View>
+      </Pressable>
+    </Link>
+  );
+};

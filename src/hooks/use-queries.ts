@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
-import { getAllEntries, addEntry } from '@/lib/db';
+import { getAllEntries, addEntry, getEntry } from '@/lib/db';
 import { cropVideo } from '@/lib/ffmpeg';
 
 export const useQueries = () => {
@@ -43,5 +43,11 @@ export const useQueries = () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['entries'] })
   });
 
-  return { getAllEntriesQuery, addEntryMutation };
+  const useGetEntryQuery = (id: string) =>
+    useQuery({
+      queryKey: ['entries', id],
+      queryFn: () => getEntry(id)
+    });
+
+  return { getAllEntriesQuery, addEntryMutation, useGetEntryQuery };
 };

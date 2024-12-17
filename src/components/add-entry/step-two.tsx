@@ -20,8 +20,10 @@ export const StepTwo = () => {
     setCurrentTime(payload.currentTime);
   });
 
+  // If clipRange[1] is end of the video it may not enter the if condition and start from
+  // beginning of video. Might look into this further.
   useEffect(() => {
-    if (currentTime > millisToSeconds(clipRange[1])) {
+    if (currentTime > millisToSeconds(clipRange[1] - 300)) {
       player.pause();
       player.currentTime = millisToSeconds(clipRange[0]);
       player.play();

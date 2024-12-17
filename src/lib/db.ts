@@ -35,6 +35,12 @@ export const addEntry = async ({
     uri
   );
 
+export const getEntry = async (id: string) =>
+  (await db.getFirstAsync(
+    'SELECT * FROM videos WHERE id = ?',
+    id
+  )) as Video | null;
+
 //
 // Experimentals
 //

@@ -4,4 +4,5 @@ export interface Video {
   description: string;
   uri: string;
   duration: number;
+  created_at: string;
 }

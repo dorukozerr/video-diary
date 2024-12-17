@@ -2,6 +2,7 @@ import 'react-native-get-random-values';
 import { v4 as uuid } from 'uuid';
 import { FFmpegKit } from 'ffmpeg-kit-react-native';
 import { documentDirectory } from 'expo-file-system';
+import { millisToSeconds } from '@/utils/helpers';
 
 export const cropVideo = async ({
   videoUri,
@@ -13,12 +14,10 @@ export const cropVideo = async ({
   try {
     const [startMs, endMs] = clipRange;
 
-    const startTime = new Date(startMs).toISOString().slice(11, 23);
-
     const outputPath = `${documentDirectory}${`cropped-${uuid()}.mp4`}`;
 
     const result = await FFmpegKit.execute(
-      `-i "${videoUri}" -ss ${startTime} -t ${(endMs - startMs) / 1000} -c copy "${outputPath}"`
+      `-i "${videoUri}" -ss ${millisToSeconds(startMs)} -t ${millisToSeconds(endMs - startMs)} "${outputPath}"`
     );
 
     const isSuccess = (await result.getReturnCode()).isValueSuccess();
