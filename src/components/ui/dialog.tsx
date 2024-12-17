@@ -27,10 +27,13 @@ export const Dialog = ({
       />
       <View className='relative z-30 h-max w-[90%] rounded-md border border-border bg-background p-4'>
         <Pressable
-          className='absolute right-2 top-2 z-50 rounded-full p-0'
+          className='absolute right-3 top-3 z-50 rounded-full p-0'
           onPress={onClose}
         >
-          <X color={`hsl(${themeTokens[activeTheme]['--primary']})`} />
+          <X
+            size={16}
+            color={`hsl(${themeTokens[activeTheme]['--primary']})`}
+          />
         </Pressable>
         <View className='relative z-40'>{children}</View>
       </View>

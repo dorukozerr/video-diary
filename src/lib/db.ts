@@ -41,50 +41,35 @@ export const getEntry = async (id: string) =>
     id
   )) as Video | null;
 
+export const updateEntry = async ({
+  id,
+  name,
+  description
+}: {
+  id: string;
+  name: string;
+  description: string;
+}) =>
+  await db.runAsync(
+    'UPDATE videos SET name = ?, description = ? WHERE id = ?',
+    name,
+    description,
+    id
+  );
+
+export const deleteEntry = async (id: string) =>
+  await db.runAsync('DELETE FROM videos WHERE id = ?', id);
+
 //
 // Experimentals
 //
 
-export const getAllTables = async () => {
-  try {
-    const tables = await db.getAllAsync(
-      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"
-    );
+export const getAllTables = async () =>
+  await db.getAllAsync(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"
+  );
 
-    return { success: true, response: tables };
-  } catch (error) {
-    console.error('getAllTables error =>', error);
+export const dropTable = async (tableName: string) =>
+  await db.execAsync(`DROP TABLE IF EXISTS ${tableName}`);
 
-    return { success: false, response: error };
-  }
-};
-
-export const dropTable = async (tableName: string) => {
-  try {
-    await db.execAsync(`DROP TABLE IF EXISTS ${tableName}`);
-
-    return {
-      success: true,
-      response: `Table ${tableName} dropped successfully.`
-    };
-  } catch (error) {
-    console.error('dropTable error =>', error);
-
-    return { success: false, response: error };
-  }
-};
-
-export const deleteAll = async () => {
-  try {
-    await db.execAsync('DELETE FROM videos');
-
-    return {
-      message: 'success',
-      response: 'All video records deleted from table videos.'
-    };
-  } catch (error) {
-    console.error('deleteAll error =>', error);
-
-    return { success: false, response: error };
-  }
-};
+export const deleteAll = async () => await db.execAsync('DELETE FROM videos');
