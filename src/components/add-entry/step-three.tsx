@@ -4,21 +4,11 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAddEntryStore } from '@/stores/add-entry-store';
 import { useQueries } from '@/hooks/use-queries';
+import { entrySchema } from '@/utils/schemas';
 import { Navigation } from '@/components/add-entry/navigation';
 import { View, Text } from '@/components/ui/themed-primitives';
 
-const schema = z.object({
-  name: z
-    .string()
-    .min(5, { message: 'Name must be at least 5 characters long' })
-    .max(150, { message: 'Name can be maximum 150 characters long.' }),
-  description: z
-    .string()
-    .min(5, { message: 'Description must be at least 5 characters long.' })
-    .max(250, { message: 'Description can be maximum 250 characters long.' })
-});
-
-type FormValues = z.infer<typeof schema>;
+type FormValues = z.infer<typeof entrySchema>;
 
 export const StepThree = () => {
   const {
@@ -26,7 +16,8 @@ export const StepThree = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<FormValues>({
-    resolver: zodResolver(schema)
+    resolver: zodResolver(entrySchema),
+    defaultValues: { name: '', description: '' }
   });
   const { baseVideo, clipRange } = useAddEntryStore();
   const {

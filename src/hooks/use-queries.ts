@@ -14,8 +14,8 @@ export const useQueries = () => {
   const queryClient = useQueryClient();
 
   const getAllEntriesQuery = useQuery({
-    queryKey: ['entries'],
-    queryFn: getAllEntries
+    queryFn: getAllEntries,
+    queryKey: ['entries']
   });
 
   const addEntryMutation = useMutation({
@@ -50,39 +50,37 @@ export const useQueries = () => {
 
   const useGetEntryQuery = (id: string) =>
     useQuery({
-      queryKey: ['entries', id],
-      queryFn: async () => await getEntry(id)
+      queryFn: async () => await getEntry(id),
+      queryKey: ['entries', id]
     });
 
-  const useUpdateEntryMutation = ({
-    id,
-    name,
-    description
-  }: {
-    id: string;
-    name: string;
-    description: string;
-  }) =>
-    useMutation({
-      mutationFn: async () => await updateEntry({ id, name, description }),
-      onSuccess: () =>
-        queryClient.invalidateQueries({ queryKey: ['entries', id] })
-    });
+  const updateEntryMutation = useMutation({
+    mutationFn: async ({
+      id,
+      name,
+      description
+    }: {
+      id: string;
+      name: string;
+      description: string;
+    }) => updateEntry({ id, name, description }),
+    onSuccess: (_, { id }) =>
+      queryClient.invalidateQueries({ queryKey: ['entries', id] })
+  });
 
-  const useDeleteEntryMutation = (id: string) =>
-    useMutation({
-      mutationFn: async () => await deleteEntry(id),
-      onSuccess: () => {
-        navigate('/');
-        queryClient.invalidateQueries({ queryKey: ['entries', id] });
-      }
-    });
+  const deleteEntryMutation = useMutation({
+    mutationFn: async (id: string) => await deleteEntry(id),
+    onSuccess: (_, id) => {
+      navigate('/');
+      queryClient.invalidateQueries({ queryKey: ['entries', id] });
+    }
+  });
 
   return {
     getAllEntriesQuery,
     addEntryMutation,
     useGetEntryQuery,
-    useUpdateEntryMutation,
-    useDeleteEntryMutation
+    updateEntryMutation,
+    deleteEntryMutation
   };
 };

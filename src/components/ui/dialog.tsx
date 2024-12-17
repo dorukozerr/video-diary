@@ -25,7 +25,7 @@ export const Dialog = ({
         className='absolute left-0 top-0 h-full w-full bg-background opacity-80'
         onPress={onClose}
       />
-      <View className='relative z-30 h-max w-[90%] rounded-md border border-border bg-background p-4'>
+      <View className='relative z-30 w-[90%] rounded-md border border-border bg-background p-4'>
         <Pressable
           className='absolute right-3 top-3 z-50 rounded-full p-0'
           onPress={onClose}
