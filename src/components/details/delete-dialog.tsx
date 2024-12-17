@@ -49,9 +49,7 @@ export const DeleteDialog = ({
                 color={`hsl(${themeTokens[activeTheme]['--primary-foreground']})`}
               />
             ) : (
-              <Text className='font-medium text-destructive-foreground'>
-                Delete Entry
-              </Text>
+              <Text className='font-medium text-white'>Delete Entry</Text>
             )}
           </Pressable>
         </View>
