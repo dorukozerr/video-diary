@@ -17,7 +17,7 @@ export const cropVideo = async ({
     const outputPath = `${documentDirectory}${`cropped-${uuid()}.mp4`}`;
 
     const result = await FFmpegKit.execute(
-      `-i "${videoUri}" -ss ${millisToSeconds(startMs)} -t ${millisToSeconds(endMs - startMs)} -f mp4 -c copy "${outputPath}"`
+      `-i "${videoUri}" -ss ${millisToSeconds(startMs)} -t ${millisToSeconds(endMs - startMs)} -f mp4 "${outputPath}"`
     );
 
     const isSuccess = (await result.getReturnCode()).isValueSuccess();

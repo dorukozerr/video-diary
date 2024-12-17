@@ -15,18 +15,13 @@ export const EntryCard = ({
 
   const generateThumbnail = async (videoUri: string) => {
     try {
-      if (Platform.OS === 'android') {
-        const androidUri = await getContentUriAsync(videoUri);
+      const contentUri = await getContentUriAsync(videoUri);
 
-        const { uri } = await getThumbnailAsync(androidUri);
-
-        setImage(uri);
-
-        return;
-      }
-      const { uri } = await getThumbnailAsync(videoUri);
+      const { uri } = await getThumbnailAsync(contentUri);
 
       setImage(uri);
+
+      return;
     } catch (e) {
       console.warn(e);
     }
