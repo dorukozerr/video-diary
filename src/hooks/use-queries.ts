@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
+import { deleteAsync } from 'expo-file-system';
 import {
   getAllEntries,
   addEntry,
@@ -75,7 +76,10 @@ export const useQueries = () => {
   });
 
   const deleteEntryMutation = useMutation({
-    mutationFn: async (id: string) => await deleteEntry(id),
+    mutationFn: async ({ id, assetUri }: { id: string; assetUri: string }) => {
+      await deleteEntry(id);
+      await deleteAsync(assetUri);
+    },
     onSuccess: (_, id) => {
       navigate('/');
       queryClient.invalidateQueries({ queryKey: ['entries', id] });

@@ -21,7 +21,7 @@ export const DeleteDialog = ({
   } = useQueries();
 
   const handleDelete = async () => {
-    await mutateAsync(entry?.id ?? '');
+    await mutateAsync({ id: entry?.id ?? '', assetUri: entry?.uri ?? '' });
     onClose();
   };
 
