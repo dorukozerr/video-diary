@@ -59,11 +59,6 @@ export const useAddEntryStore = create<ProcessState>((set) => ({
 
       const { uri, duration, fileName } = result.assets[0] as ImagePickerAsset;
 
-      // Next two if statements are overthinked edge case covareges, but TS is complaning
-      // when not add them. It complains about filename and duration might be  undefined
-      // or null. Added 5000 milliseconds check just because task requirements says video
-      // must be cropped in 5 second range.
-
       if (!fileName) {
         set({
           errorMessage: 'File name cannot be undefined',

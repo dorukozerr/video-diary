@@ -106,6 +106,7 @@ export const EditDialog = ({
           >
             {isPending ? (
               <ActivityIndicator
+                size={16}
                 color={`hsl(${themeTokens[activeTheme]['--primary-foreground']})`}
               />
             ) : (
