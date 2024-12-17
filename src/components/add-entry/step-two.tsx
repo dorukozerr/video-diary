@@ -10,12 +10,6 @@ export const StepTwo = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const { baseVideo, clipRange } = useAddEntryStore();
 
-  // I spent more than 10 hours to setup this video player and making it
-  // loop over on selected clip range. It totally worth it I'm satisfied :))
-  // I also disabled native controls on video component to make ui more simple
-  // and minimalist but video keeps looping between min clip range and max lip range
-  // to test it out who ever reviews this can turn it on and play a little bit with it.
-
   const player = useVideoPlayer(baseVideo.uri, (player) => {
     player.loop = true;
     player.play();

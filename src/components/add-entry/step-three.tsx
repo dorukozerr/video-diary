@@ -2,16 +2,16 @@ import { TextInput } from 'react-native';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cropVideo } from '@/lib/ffmpeg';
 import { useAddEntryStore } from '@/stores/add-entry-store';
+import { useQueries } from '@/hooks/use-queries';
 import { Navigation } from '@/components/add-entry/navigation';
 import { View, Text } from '@/components/ui/themed-primitives';
 
 const schema = z.object({
-  title: z
+  name: z
     .string()
-    .min(5, { message: 'Title must be at least 5 characters long' })
-    .max(150, { message: 'Title can be maximum 150 characters long.' }),
+    .min(5, { message: 'Name must be at least 5 characters long' })
+    .max(150, { message: 'Name can be maximum 150 characters long.' }),
   description: z
     .string()
     .min(5, { message: 'Description must be at least 5 characters long.' })
@@ -29,14 +29,13 @@ export const StepThree = () => {
     resolver: zodResolver(schema)
   });
   const { baseVideo, clipRange } = useAddEntryStore();
+  const {
+    addEntryMutation: { mutateAsync }
+  } = useQueries();
 
-  const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    console.log(values);
-
-    const res = await cropVideo({ videoUri: baseVideo.uri, clipRange });
-
-    console.log('res =>', res);
-  };
+  // TODO: Add toast message maybe?
+  const onSubmit: SubmitHandler<FormValues> = async ({ name, description }) =>
+    await mutateAsync({ baseVideo, clipRange, name, description });
 
   return (
     <View className='flex h-full w-full flex-col items-center justify-center'>
@@ -45,20 +44,19 @@ export const StepThree = () => {
           <Text className='w-full text-xl font-bold'>Title</Text>
           <Controller
             control={control}
-            name='title'
+            name='name'
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                className='flex w-full flex-row items-start justify-start rounded-md border border-border p-4'
+                className='flex w-full flex-row items-start justify-start rounded-md border border-border p-4 text-foreground'
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder='Enter the title for diary entry.'
               />
             )}
           />
-          {errors['title'] ? (
+          {errors['name'] ? (
             <Text className='!text-destructive'>
-              {errors?.['title']?.message as string}
+              {errors?.['name']?.message as string}
             </Text>
           ) : null}
         </View>
@@ -69,11 +67,10 @@ export const StepThree = () => {
             name='description'
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                className='flex w-full flex-row items-start justify-start rounded-md border border-border p-4'
+                className='flex w-full flex-row items-start justify-start rounded-md border border-border p-4 text-foreground'
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder='Enter the title for diary entry.'
                 multiline={true}
                 numberOfLines={4}
               />

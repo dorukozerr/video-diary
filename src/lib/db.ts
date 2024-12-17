@@ -9,7 +9,7 @@ const initializeDB = async () => {
   db = await openDatabaseAsync('video-diary');
 
   await db.execAsync(
-    'CREATE TABLE IF NOT EXISTS videos (id TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, uri TEXT NOT NULL, duration NUMBER NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)'
+    'CREATE TABLE IF NOT EXISTS videos (id TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, uri TEXT NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)'
   );
 };
 
@@ -21,16 +21,18 @@ export const getAllEntries = async () =>
 export const addEntry = async ({
   name,
   description,
-  uri,
-  duration
-}: Omit<Video, 'id'>) =>
+  uri
+}: {
+  name: string;
+  description: string;
+  uri: string;
+}) =>
   await db.runAsync(
-    'INSERT INTO videos (id, name, description, uri, duration) VALUES (?, ?, ?, ?, ?)',
+    'INSERT INTO videos (id, name, description, uri) VALUES (?, ?, ?, ?)',
     uuid(),
     name,
     description,
-    uri,
-    duration
+    uri
   );
 
 //

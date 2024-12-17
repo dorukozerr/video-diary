@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { ArrowLeft, ArrowRight, Plus } from 'lucide-react-native';
 import { useThemeStore } from '@/stores/theme-store';
 import { useAddEntryStore } from '@/stores/add-entry-store';
@@ -7,7 +8,7 @@ import { View, Pressable, Text } from '@/components/ui/themed-primitives';
 export const Navigation = ({
   onFormSubmit
 }: {
-  onFormSubmit: () => Promise<void>;
+  onFormSubmit?: () => Promise<void>;
 }) => {
   const activeTheme = useThemeStore((state) => state.activeTheme);
   const { step, setStep, baseVideo } = useAddEntryStore();
@@ -25,16 +26,21 @@ export const Navigation = ({
       </Pressable>
       <Text>{step + 1} / 3</Text>
       <Pressable
-        className={`rounded-full bg-primary p-3 ${step === 0 && baseVideo.uri === '' ? '!bg-muted-foreground' : ''}`}
+        className={`flex flex-row items-center justify-center gap-2 rounded-full bg-primary p-3 ${step === 0 && baseVideo.uri === '' ? 'opacity-0' : ''} ${step === 2 ? 'rounded-lg' : ''}`}
         onPress={() =>
-          step !== 2 ? setStep((step + 1) as 1 | 2) : onFormSubmit()
+          step !== 2
+            ? setStep((step + 1) as 1 | 2)
+            : onFormSubmit && onFormSubmit()
         }
         disabled={step === 0 && baseVideo.uri === ''}
       >
         {step === 2 ? (
-          <Plus
-            color={`hsl(${themeTokens[activeTheme]['--primary-foreground']})`}
-          />
+          <Fragment>
+            <Plus
+              color={`hsl(${themeTokens[activeTheme]['--primary-foreground']})`}
+            />
+            <Text className='text-primary-foreground'>Submit</Text>
+          </Fragment>
         ) : (
           <ArrowRight
             color={`hsl(${themeTokens[activeTheme]['--primary-foreground']})`}
