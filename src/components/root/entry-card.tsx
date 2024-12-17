@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
+import { getContentUriAsync } from 'expo-file-system';
 import { Link } from 'expo-router';
 import { getThumbnailAsync } from 'expo-video-thumbnails';
 import { Video } from '@/types';
@@ -14,6 +15,15 @@ export const EntryCard = ({
 
   const generateThumbnail = async (videoUri: string) => {
     try {
+      if (Platform.OS === 'android') {
+        const androidUri = await getContentUriAsync(videoUri);
+
+        const { uri } = await getThumbnailAsync(androidUri);
+
+        setImage(uri);
+
+        return;
+      }
       const { uri } = await getThumbnailAsync(videoUri);
 
       setImage(uri);
