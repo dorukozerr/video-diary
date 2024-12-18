@@ -24,8 +24,6 @@ export const EntryCard = ({
       const { uri } = await getThumbnailAsync(inputUri);
 
       setImage(uri);
-
-      return;
     } catch (e) {
       console.warn(e);
     }

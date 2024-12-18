@@ -33,9 +33,7 @@ export const Scrubber = ({ player }: { player: VideoPlayer }) => {
               newMax - 5000 > 0 &&
               setClipRange([Math.max(0, newMax - 5000), newMax])
         }
-        onSlidingStart={() => {
-          player.pause();
-        }}
+        onSlidingStart={() => player.pause()}
         onSlidingComplete={async () => {
           player.currentTime = millisToSeconds(clipRange[0]);
           player.play();

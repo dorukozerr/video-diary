@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { ArrowLeft, ArrowRight, Plus } from 'lucide-react-native';
 import { useThemeStore } from '@/stores/theme-store';
 import { useAddEntryStore } from '@/stores/add-entry-store';

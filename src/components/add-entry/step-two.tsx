@@ -16,9 +16,9 @@ export const StepTwo = () => {
     player.timeUpdateEventInterval = 1;
   });
 
-  player.addListener('timeUpdate', (payload) => {
-    setCurrentTime(payload.currentTime);
-  });
+  player.addListener('timeUpdate', (payload) =>
+    setCurrentTime(payload.currentTime)
+  );
 
   // If clipRange[1] is end of the video it may not enter the if condition and start from
   // beginning of video. Might look into this further.
